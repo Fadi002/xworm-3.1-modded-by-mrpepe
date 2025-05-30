@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xpepemod API Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #0066cc;
+        }
+        h1 {
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 10px;
+        }
+        h2 {
+            margin-top: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+            background-color: #f5f5f5;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            line-height: 1.4;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .toc {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .toc ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        .toc li {
+            margin-bottom: 5px;
+        }
+        .toc a {
+            text-decoration: none;
+            color: #0066cc;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        .method, .property {
+            margin-bottom: 20px;
+        }
+        .method h3, .property h3 {
+            margin-bottom: 5px;
+        }
+        .method-signature, .property-signature {
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .parameter {
+            margin-left: 20px;
+            margin-bottom: 5px;
+        }
+        .parameter-name {
+            font-weight: bold;
+        }
+        .parameter-type {
+            color: #0066cc;
+        }
+        .parameter-description {
+            margin-left: 10px;
+        }
+        .example {
+            margin-top: 30px;
+        }
+        .example h3 {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Xpepemod API Documentation</h1>
+    <p>Xpepemod is a modding framework for Xworm v3.1 that provides theming, event handling, and logging capabilities.</p>
+
+    <div class="toc">
+        <h2>Table of Contents</h2>
+        <ul>
+            <li><a href="#logging-api">Logging API</a></li>
+            <li><a href="#theme-api">Theme API</a></li>
+            <li><a href="#event-api">Event API</a></li>
+            <li><a href="#mod-interface">Mod Interface</a></li>
+            <li><a href="#mod-loader">Mod Loader</a></li>
+            <li><a href="#example-usage">Example Usage</a></li>
+        </ul>
+    </div>
+
+    <h2 id="logging-api">Logging API</h2>
+    <p>The logging system provides multiple severity levels with color-coded output.</p>
+
+    <pre><code>namespace Xpepemod
+{
+    public enum LogLevel
+    {
+        Trace = 0,
+        Debug = 1,
+        Info = 2,
+        Warning = 3,
+        Error = 4,
+        Critical = 5,
+        None = 6
+    }
+
+    public class LogAPI
+    {
+        public LogLevel MinimumLevel { get; set; }
+        public bool UseColors { get; set; }
+        public bool ShowTimestamp { get; set; }
+        
+        public void Trace(string message);
+        public void Debug(string message);
+        public void Info(string message);
+        public void Warning(string message);
+        public void Error(string message);
+        public void Critical(string message);
+    }
+}</code></pre>
+
+    <h3>Properties</h3>
+    <table>
+        <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>MinimumLevel</code></td>
+            <td><code>LogLevel</code></td>
+            <td><code>LogLevel.Info</code></td>
+            <td>The minimum severity level of messages to display</td>
+        </tr>
+        <tr>
+            <td><code>UseColors</code></td>
+            <td><code>bool</code></td>
+            <td><code>true</code></td>
+            <td>Whether to use colors in the console output</td>
+        </tr>
+        <tr>
+            <td><code>ShowTimestamp</code></td>
+            <td><code>bool</code></td>
+            <td><code>false</code></td>
+            <td>Whether to include timestamps in log messages</td>
+        </tr>
+    </table>
+
+    <h3>Methods</h3>
+    <table>
+        <tr>
+            <th>Method</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>Trace(string message)</code></td>
+            <td>Logs a trace message (dark gray)</td>
+        </tr>
+        <tr>
+            <td><code>Debug(string message)</code></td>
+            <td>Logs a debug message (gray)</td>
+        </tr>
+        <tr>
+            <td><code>Info(string message)</code></td>
+            <td>Logs an informational message (white)</td>
+        </tr>
+        <tr>
+            <td><code>Warning(string message)</code></td>
+            <td>Logs a warning message (yellow)</td>
+        </tr>
+        <tr>
+            <td><code>Error(string message)</code></td>
+            <td>Logs an error message (red)</td>
+        </tr>
+        <tr>
+            <td><code>Critical(string message)</code></td>
+            <td>Logs a critical error message (dark red)</td>
+        </tr>
+    </table>
+
+    <h3>Log Levels</h3>
+    <table>
+        <tr>
+            <th>Level</th>
+            <th>Value</th>
+            <th>Color</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>Trace</code></td>
+            <td>0</td>
+            <td>Dark Gray</td>
+            <td>Very detailed information, useful for debugging</td>
+        </tr>
+        <tr>
+            <td><code>Debug</code></td>
+            <td>1</td>
+            <td>Gray</td>
+            <td>Debugging information</td>
+        </tr>
+        <tr>
+            <td><code>Info</code></td>
+            <td>2</td>
+            <td>White</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td><code>Warning</code></td>
+            <td>3</td>
+            <td>Yellow</td>
+            <td>Potential issues that don't prevent operation</td>
+        </tr>
+        <tr>
+            <td><code>Error</code></td>
+            <td>4</td>
+            <td>Red</td>
+            <td>Errors that may impact functionality</td>
+        </tr>
+        <tr>
+            <td><code>Critical</code></td>
+            <td>5</td>
+            <td>Dark Red</td>
+            <td>Critical errors that prevent operation</td>
+        </tr>
+        <tr>
+            <td><code>None</code></td>
+            <td>6</td>
+            <td>N/A</td>
+            <td>No logging</td>
+        </tr>
+    </table>
+
+    <h2 id="theme-api">Theme API</h2>
+    <p>The theming system allows customization of the appearance of Windows Forms controls.</p>
+
+    <pre><code>namespace Xpepemod
+{
+    public class ControlStyle
+    {
+        public event Action StyleChanged;
+        
+        public Color? BackColor { get; set; }
+        public Color? ForeColor { get; set; }
+        public Font Font { get; set; }
+        public BorderStyle? BorderStyle { get; set; }
+        public Padding? Padding { get; set; }
+        public Color? BorderColor { get; set; }
+        public int CornerRadius { get; set; }
+        // Additional properties...
+    }
+
+    public class ThemeAPI
+    {
+        public ControlStyle Form { get; set; }
+        public ControlStyle ListBox { get; set; }
+        public ControlStyle Button { get; set; }
+        public ControlStyle TextBox { get; set; }
+        public ControlStyle ListView { get; set; }
+        public ControlStyle StatusStrip { get; set; }
+        public ControlStyle Label { get; set; }
+        public ControlStyle ComboBox { get; set; }
+        public ControlStyle Panel { get; set; }
+        public ControlStyle CheckBox { get; set; }
+        public ControlStyle RadioButton { get; set; }
+        public ControlStyle TabControl { get; set; }
+        public ControlStyle GroupBox { get; set; }
+        public ControlStyle ContextMenuStrip { get; set; }
+        public ControlStyle MenuStrip { get; set; }
+        public ControlStyle ToolStripDropDown { get; set; }
+        
+        public void ApplyTo(Control control);
+    }
+}</code></pre>
+
+    <h3>ControlStyle Properties</h3>
+    <table>
+        <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>BackColor</code></td>
+            <td><code>Color?</code></td>
+            <td>Background color of the control</td>
+        </tr>
+        <tr>
+            <td><code>ForeColor</code></td>
+            <td><code>Color?</code></td>
+            <td>Text color of the control</td>
+        </tr>
+        <tr>
+            <td><code>Font</code></td>
+            <td><code>Font</code></td>
+            <td>Font used for text in the control</td>
+        </tr>
+        <tr>
+            <td><code>BorderStyle</code></td>
+            <td><code>BorderStyle?</code></td>
+            <td>Border style of the control</td>
+        </tr>
+        <tr>
+            <td><code>Padding</code></td>
+            <td><code>Padding?</code></td>
+            <td>Padding inside the control</td>
+        </tr>
+        <tr>
+            <td><code>BorderColor</code></td>
+            <td><code>Color?</code></td>
+            <td>Color of the control's border</td>
+        </tr>
+        <tr>
+            <td><code>CornerRadius</code></td>
+            <td><code>int</code></td>
+            <td>Radius of rounded corners (if supported)</td>
+        </tr>
+    </table>
+
+    <h3>ThemeAPI Properties</h3>
+    <p>Each property represents a style for a specific type of control:</p>
+    <table>
+        <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>Form</code></td>
+            <td><code>ControlStyle</code></td>
+            <td>Style for Form controls</td>
+        </tr>
+        <tr>
+            <td><code>ListBox</code></td>
+            <td><code>ControlStyle</code></td>
+            <td>Style for ListBox controls</td>
+        </tr>
+        <tr>
+            <td><code>Button</code></td>
+            <td><code>ControlStyle</code></td>
+            <td>Style for Button controls</td>
+        </tr>
+        <tr>
+            <td><code>TextBox</code></td>
+            <td><code>ControlStyle</code></td>
+            <td>Style for TextBox controls</td>
+        </tr>
+        <tr>
+            <td><code>ListView</code></td>
+            <td><code>ControlStyle</code></td>
+            <td>Style for ListView controls</td>
+        </tr>
+        <tr>
+            <td><code>StatusStrip</code></td>
+            <td><code>ControlStyle</code></td>
+            <td>Style for StatusStrip controls</td>
+        </tr>
+        <tr>
+            <td><code>Label</code></td>
+            <td><code>ControlStyle</code></td>
+            <td>Style for Label controls</td>
+        </tr>
+        <tr>
+            <td><code>ComboBox</code></td>
+            <td><code>ControlStyle</code></td>
+            <td>Style for ComboBox controls</td>
+        </tr>
+        <tr>
+            <td><code>Panel</code></td>
+            <td><code>ControlStyle</code></td>
+            <td>Style for Panel controls</td>
+        </tr>
+        <tr>
+            <td><code>CheckBox</code></td>
+            <td><code>ControlStyle</code></td>
+            <td>Style for CheckBox controls</td>
+        </tr>
+        <tr>
+            <td><code>RadioButton</code></td>
+            <td><code>ControlStyle</code></td>
+            <td>Style for RadioButton controls</td>
+        </tr>
+        <tr>
+            <td><code>TabControl</code></td>
+            <td><code>ControlStyle</code></td>
+            <td>Style for TabControl controls</td>
+        </tr>
+        <tr>
+            <td><code>GroupBox</code></td>
+            <td><code>ControlStyle</code></td>
+            <td>Style for GroupBox controls</td>
+        </tr>
+        <tr>
+            <td><code>ContextMenuStrip</code></td>
+            <td><code>ControlStyle</code></td>
+            <td>Style for ContextMenuStrip controls</td>
+        </tr>
+        <tr>
+            <td><code>MenuStrip</code></td>
+            <td><code>ControlStyle</code></td>
+            <td>Style for MenuStrip controls</td>
+        </tr>
+        <tr>
+            <td><code>ToolStripDropDown</code></td>
+            <td><code>ControlStyle</code></td>
+            <td>Style for ToolStripDropDown controls</td>
+        </tr>
+    </table>
+
+    <h3>ThemeAPI Methods</h3>
+    <table>
+        <tr>
+            <th>Method</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>ApplyTo(Control control)</code></td>
+            <td>Applies the theme to the specified control and all its child controls</td>
+        </tr>
+    </table>
+
+    <h2 id="event-api">Event API</h2>
+    <p>The event handling system allows adding custom functionality to the application.</p>
+
+    <pre><code>namespace Xpepemod
+{
+    public class EventAPI
+    {
+        public void Initialize(Form form);
+        public void AddFeature(string controlName, string featureName, Action onClick, 
+                              Image icon = null, Keys shortcut = Keys.None, string tooltip = null);
+    }
+}</code></pre>
+
+    <h3>Methods</h3>
+    <table>
+        <tr>
+            <th>Method</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>Initialize(Form form)</code></td>
+            <td>Initializes the event system with the main form</td>
+        </tr>
+        <tr>
+            <td><code>AddFeature(string controlName, string featureName, Action onClick, Image icon = null, Keys shortcut = Keys.None, string tooltip = null)</code></td>
+            <td>Adds a custom feature to a control</td>
+        </tr>
+    </table>
+
+    <h3>AddFeature Parameters</h3>
+    <table>
+        <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>controlName</code></td>
+            <td><code>string</code></td>
+            <td>The name of the control to add the feature to (usually a menu or context menu)</td>
+        </tr>
+        <tr>
+            <td><code>featureName</code></td>
+            <td><code>string</code></td>
+            <td>The name/path of the feature (can include submenus using '/' as a separator)</td>
+        </tr>
+        <tr>
+            <td><code>onClick</code></td>
+            <td><code>Action</code></td>
+            <td>The action to perform when the feature is activated</td>
+        </tr>
+        <tr>
+            <td><code>icon</code></td>
+            <td><code>Image</code></td>
+            <td>Optional icon to display next to the feature</td>
+        </tr>
+        <tr>
+            <td><code>shortcut</code></td>
+            <td><code>Keys</code></td>
+            <td>Optional keyboard shortcut for the feature</td>
+        </tr>
+        <tr>
+            <td><code>tooltip</code></td>
+            <td><code>string</code></td>
+            <td>Optional tooltip text for the feature</td>
+        </tr>
+    </table>
+
+    <h2 id="mod-interface">Mod Interface</h2>
+    <p>The mod interface defines the contract for creating mods for Xpepemod.</p>
+
+    <pre><code>namespace Xpepemod
+{
+    public interface IMod
+    {
+        void OnLoad();
+    }
+}</code></pre>
+
+    <h3>Methods</h3>
+    <table>
+        <tr>
+            <th>Method</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>OnLoad()</code></td>
+            <td>Called when the mod is loaded by the mod loader</td>
+        </tr>
+    </table>
+
+    <h2 id="mod-loader">Mod Loader</h2>
+    <p>The mod loader is responsible for loading mods from the Mods directory.</p>
+
+    <pre><code>namespace Xpepemod
+{
+    public static class ModLoader
+    {
+        public static void LoadMods();
+    }
+}</code></pre>
+
+    <h3>Methods</h3>
+    <table>
+        <tr>
+            <th>Method</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>LoadMods()</code></td>
+            <td>Loads all mods from the Mods directory</td>
+        </tr>
+    </table>
+
+    <h3>Mod Loading Process</h3>
+    <ol>
+        <li>The mod loader looks for DLL files in the <code>Mods</code> directory</li>
+        <li>For each DLL, it loads the assembly and searches for types that implement the <code>IMod</code> interface</li>
+        <li>For each mod type found, it creates an instance and calls the <code>OnLoad()</code> method</li>
+        <li>If an error occurs during loading, it logs the error and continues with the next mod</li>
+    </ol>
+
+    <h2 id="example-usage">Example Usage</h2>
+    <h3>Creating a Simple Mod</h3>
+    <pre><code>using System;
+using System.Windows.Forms;
+using System.Drawing;
+
+namespace MyMod
+{
+    public class MyMod : IMod
+    {
+        public void OnLoad()
+        {
+            // Log information
+            Xpepemod.Xpepemod.Log.Info("MyMod loaded successfully");
+
+            // p00032e = the little dropmenu that has the builder and other stuff
+            // p0002ff = the client menu (when you right click on a client)
+            
+            // Add a custom feature
+            Xpepemod.Xpepemod.Events.AddFeature(
+                "p00032e",
+                "My Mod/Do Something",
+                () => MessageBox.Show("Hello from MyMod!"),
+                null,
+                Keys.None,
+                "Does something cool"
+            );
+            
+            // Customize the theme
+            Xpepemod.Xpepemod.Themes.Button.BackColor = Color.DarkBlue;
+            Xpepemod.Xpepemod.Themes.Button.ForeColor = Color.White;
+        }
+    }
+}</code></pre>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xpepemod Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #0066cc;
+        }
+        h1 {
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 10px;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .card h2 {
+            margin-top: 0;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            display: inline-block;
+            background-color: #0066cc;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #0055aa;
+            text-decoration: none;
+        }
+        .format-icon {
+            font-size: 2em;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <h1>Xpepemod Documentation</h1>
+    <p>Welcome to the Xpepemod documentation. Xpepemod is a modding framework for Xworm v3.1 that provides theming, event handling, and logging capabilities.</p>
+
+    <div class="card">
+        <h2>API Documentation</h2>
+        <p>Comprehensive documentation of the Xpepemod API, including classes, methods, and examples.</p>
+        <p>Available in the following formats:</p>
+        
+        <div>
+            <span class="format-icon">📄</span>
+            <a href="API.html" class="button">HTML Format</a>
+            <p>Interactive documentation with syntax highlighting and navigation.</p>
+        </div>
+        
+        <div>
+            <span class="format-icon">📝</span>
+            <a href="API.md" class="button">Markdown Format</a>
+            <p>Plain text documentation that can be viewed in any text editor or rendered by GitHub.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Getting Started</h2>
+        <p>To get started with Xpepemod:</p>
+        <ol>
+            <li>Add a reference to Xpepemod.dll in your project</li>
+            <li>Create a class that implements the <code>Xpepemod.IMod</code> interface</li>
+            <li>Implement the <code>OnLoad()</code> method</li>
+            <li>Build your project and place the DLL in the Mods folder</li>
+        </ol>
+        <p>See the API documentation for detailed examples and usage instructions.</p>
+    </div>
+
+    <div class="card">
+        <h2>Example Mod</h2>
+        <p>The solution includes an ExampleMod project that demonstrates how to create a mod for Xpepemod.</p>
+        <p>The ExampleMod:</p>
+        <ul>
+            <li>Uses the logging system with different levels</li>
+            <li>Applies a dark theme to the application</li>
+            <li>Adds a menu item to the context menu</li>
+        </ul>
+        <p>Check out the source code in the ExampleMod directory for a complete example.</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Xpepemod</p>
+    </footer>
+</body>
+</html>
